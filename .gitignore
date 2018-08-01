@@ -15,5 +15,4 @@ dist
 RUNNING_PID
 .cache-main
 .cache-tests
-conf/evolutions/
 conf/prod.conf
