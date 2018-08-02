@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table linked_account (
-  id                            bigint auto_increment not null,
+  id                            bigserial,
   user_id                       bigint,
   provider_user_id              varchar(255),
   provider_key                  varchar(255),
@@ -12,13 +12,13 @@ create table linked_account (
 );
 
 create table security_role (
-  id                            bigint auto_increment not null,
+  id                            bigserial,
   role_name                     varchar(255),
   constraint pk_security_role primary key (id)
 );
 
 create table token_action (
-  id                            bigint auto_increment not null,
+  id                            bigserial,
   token                         varchar(255),
   target_user_id                bigint,
   type                          varchar(2),
@@ -30,7 +30,7 @@ create table token_action (
 );
 
 create table users (
-  id                            bigint auto_increment not null,
+  id                            bigserial,
   email                         varchar(255),
   name                          varchar(255),
   first_name                    varchar(255),
@@ -54,7 +54,7 @@ create table users_user_permission (
 );
 
 create table user_permission (
-  id                            bigint auto_increment not null,
+  id                            bigserial,
   value                         varchar(255),
   constraint pk_user_permission primary key (id)
 );
