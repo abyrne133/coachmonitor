@@ -7,7 +7,6 @@ scalaVersion := "2.11.8"
 version := "1.0-SNAPSHOT"
 
 herokuAppName in Compile := "play-authenticate"
-
 val appDependencies = Seq(
   "be.objectify"  %% "deadbolt-java"     % "2.5.0",
   // Comment the next line for local development of the Play Authentication core:

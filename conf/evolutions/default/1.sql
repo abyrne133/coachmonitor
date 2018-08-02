@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table linked_account (
-  id                            bigserial,
+  id                            bigserial not null,
   user_id                       bigint,
   provider_user_id              varchar(255),
   provider_key                  varchar(255),
@@ -12,30 +12,30 @@ create table linked_account (
 );
 
 create table security_role (
-  id                            bigserial,
+  id                            bigserial not null,
   role_name                     varchar(255),
   constraint pk_security_role primary key (id)
 );
 
 create table token_action (
-  id                            bigserial,
+  id                            bigserial not null,
   token                         varchar(255),
   target_user_id                bigint,
   type                          varchar(2),
-  created                       timestamp,
-  expires                       timestamp,
+  created                       timestamptz,
+  expires                       timestamptz,
   constraint ck_token_action_type check ( type in ('PR','EV')),
   constraint uq_token_action_token unique (token),
   constraint pk_token_action primary key (id)
 );
 
 create table users (
-  id                            bigserial,
+  id                            bigserial not null,
   email                         varchar(255),
   name                          varchar(255),
   first_name                    varchar(255),
   last_name                     varchar(255),
-  last_login                    timestamp,
+  last_login                    timestamptz,
   active                        boolean,
   email_validated               boolean,
   constraint pk_users primary key (id)
@@ -54,7 +54,7 @@ create table users_user_permission (
 );
 
 create table user_permission (
-  id                            bigserial,
+  id                            bigserial not null,
   value                         varchar(255),
   constraint pk_user_permission primary key (id)
 );
@@ -80,35 +80,35 @@ create index ix_users_user_permission_user_permission on users_user_permission (
 
 # --- !Downs
 
-alter table linked_account drop constraint if exists fk_linked_account_user_id;
+alter table if exists linked_account drop constraint if exists fk_linked_account_user_id;
 drop index if exists ix_linked_account_user_id;
 
-alter table token_action drop constraint if exists fk_token_action_target_user_id;
+alter table if exists token_action drop constraint if exists fk_token_action_target_user_id;
 drop index if exists ix_token_action_target_user_id;
 
-alter table users_security_role drop constraint if exists fk_users_security_role_users;
+alter table if exists users_security_role drop constraint if exists fk_users_security_role_users;
 drop index if exists ix_users_security_role_users;
 
-alter table users_security_role drop constraint if exists fk_users_security_role_security_role;
+alter table if exists users_security_role drop constraint if exists fk_users_security_role_security_role;
 drop index if exists ix_users_security_role_security_role;
 
-alter table users_user_permission drop constraint if exists fk_users_user_permission_users;
+alter table if exists users_user_permission drop constraint if exists fk_users_user_permission_users;
 drop index if exists ix_users_user_permission_users;
 
-alter table users_user_permission drop constraint if exists fk_users_user_permission_user_permission;
+alter table if exists users_user_permission drop constraint if exists fk_users_user_permission_user_permission;
 drop index if exists ix_users_user_permission_user_permission;
 
-drop table if exists linked_account;
+drop table if exists linked_account cascade;
 
-drop table if exists security_role;
+drop table if exists security_role cascade;
 
-drop table if exists token_action;
+drop table if exists token_action cascade;
 
-drop table if exists users;
+drop table if exists users cascade;
 
-drop table if exists users_security_role;
+drop table if exists users_security_role cascade;
 
-drop table if exists users_user_permission;
+drop table if exists users_user_permission cascade;
 
-drop table if exists user_permission;
+drop table if exists user_permission cascade;
 
