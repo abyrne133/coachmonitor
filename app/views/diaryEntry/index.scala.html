@@ -1,0 +1,17 @@
+@(diaryEntrys : Set[DiaryEntry])
+
+<html>
+    <head>
+        <title>All Diary Entries</title>
+    </head>
+    <body>
+        <h1>
+            All Diary Entries
+        </h1>
+        @for(diaryEntry <- diaryEntrys){
+            <p>Id:  @diaryEntry.id</p>
+            <p>DateTime: @diaryEntry.dateTime</p>
+            <p>Athlete: @diaryEntry.athleteName</p>
+        }
+    </body>
+</html>

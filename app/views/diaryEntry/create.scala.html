@@ -1,0 +1,18 @@
+@(diaryEntryForm : Form[DiaryEntry])
+@import helper._
+
+<html>
+<head>
+    <title>Dear Diary</title>
+</head>
+<body>
+    <h1>Dear Diary</h1>
+    @helper.form(action = routes.DiaryEntryController.save()){
+    @helper.inputText(diaryEntryForm("id"))
+    @helper.inputText(diaryEntryForm("dateTime"))
+    @helper.inputText(diaryEntryForm("athleteName"))
+
+    <input type="submit" value="Submit">
+    }
+</body>
+</html>
