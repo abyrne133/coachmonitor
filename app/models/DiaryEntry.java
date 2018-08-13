@@ -19,16 +19,16 @@ public class DiaryEntry {
 
     public DiaryEntry(){};
 
-    public DiaryEntry(Integer id, LocalDateTime dateTime, String athleteName){
+    public DiaryEntry(Integer id, LocalDateTime dateTime, String athleteName, List<Question> questions){
         this.id = id;
         this.dateTime = dateTime;
         this.athleteName = athleteName;
+        this.questions = questions;
     }
     private static Set<DiaryEntry> diaryEntries;
     static{
         diaryEntries = new HashSet<>();
-        diaryEntries.add(new DiaryEntry(1,LocalDateTime.now(), "John Smith"));
-        diaryEntries.add(new DiaryEntry(2,LocalDateTime.now(), "Mary Smith"));
+        diaryEntries.add(new DiaryEntry(1,LocalDateTime.now(), "John Smith", Question.questions));
 
     }
 
