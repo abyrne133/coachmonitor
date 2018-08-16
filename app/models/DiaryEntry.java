@@ -29,10 +29,11 @@ public class DiaryEntry {
     static{
         diaryEntries = new HashSet<>();
         diaryEntries.add(new DiaryEntry(1,LocalDateTime.now(), "John Smith", Question.questions));
-
     }
 
     public static Set<DiaryEntry> allDiaryEntry(){
+
+
         return diaryEntries;
     }
 

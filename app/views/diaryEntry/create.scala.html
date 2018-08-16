@@ -1,6 +1,5 @@
-@(diaryEntryForm : Form[DiaryEntry])
+@(diaryEntryForm : Form[DiaryEntry], diaryEntry : DiaryEntry)
 @import helper._
-
 <html>
 <head>
     <title>Dear Diary</title>
@@ -8,11 +7,19 @@
 <body>
     <h1>Dear Diary</h1>
     @helper.form(action = routes.DiaryEntryController.save()){
-    @helper.inputText(diaryEntryForm("id"))
-    @helper.inputText(diaryEntryForm("dateTime"))
-    @helper.inputText(diaryEntryForm("athleteName"))
-
-    <input type="submit" value="Submit">
+        @helper.inputText(diaryEntryForm("id"))
+        @helper.inputText(diaryEntryForm("athleteName"))
+        @for(q <- diaryEntry.questions){
+            @if(q.questionType == "Slider"){
+                <div class="form-group">
+                    <label>@q.title</label>
+                    <input type="range" class="form-control-range" id=@q.slideId min=@q.slideMinValue max=@q.slideMaxValue value =@q.slideDefaultValue onchange="updateSlideValue('@q.slideId','@q.answerId');">
+                    <span id =@q.answerId>@q.slideDefaultValue</span>
+                </div>
+            }
+        }
+        <input type="submit" value="Submit">
     }
+    <script src="@routes.Assets.versioned("javascripts/custom.js")"></script>
 </body>
 </html>

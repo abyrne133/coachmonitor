@@ -14,7 +14,7 @@ public class Question {
     public Integer slideMinValue;
     public Integer slideDefaultValue;
 
-    public static List<Question> questions;
+    public static final List<Question> questions;
 
     //persist in db later
     static{

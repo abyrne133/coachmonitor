@@ -1,5 +1,6 @@
 package controllers;
 import models.DiaryEntry;
+import models.Question;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -7,6 +8,7 @@ import play.mvc.Result;
 import views.html.diaryEntry.*;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class DiaryEntryController extends Controller{
@@ -21,7 +23,9 @@ public class DiaryEntryController extends Controller{
 
     public Result create(){
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class);
-        return ok(create.render(diaryEntryForm));
+        DiaryEntry diaryEntry = new DiaryEntry();
+        diaryEntry.questions = Question.questions;
+        return ok(create.render(diaryEntryForm, diaryEntry));
     }
 
     public Result save(){
