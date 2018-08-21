@@ -1,56 +1,37 @@
 package models;
 
-
+import com.avaje.ebean.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class DiaryEntry {
-    public Integer id;
+@Entity
+public class DiaryEntry extends Model {
+    @Id
+    public Long id;
+
     public LocalDateTime dateTime;
+
+    @ManyToOne
     public List<Question> questions;
-    public String athleteName;
+
+    @ManyToOne
+    public User user;
+
     public Integer overallScore;
 
     public Integer calculateScore(){
         return 0;
     }
 
-    public DiaryEntry(){};
+    public DiaryEntry(){
 
-    public DiaryEntry(Integer id, LocalDateTime dateTime, String athleteName, List<Question> questions){
-        this.id = id;
-        this.dateTime = dateTime;
-        this.athleteName = athleteName;
-        this.questions = questions;
-    }
-    private static Set<DiaryEntry> diaryEntries;
-    static{
-        diaryEntries = new HashSet<>();
-        diaryEntries.add(new DiaryEntry(1,LocalDateTime.now(), "John Smith", Question.questions));
     }
 
-    public static Set<DiaryEntry> allDiaryEntry(){
+    public static Finder<Long, DiaryEntry>  find = new Finder<>(DiaryEntry.class);
 
-
-        return diaryEntries;
+    public static DiaryEntry findById(Long Id){
+        return find.byId(Id);
     }
 
-    public static DiaryEntry findById(Integer id){
-        for(DiaryEntry diaryEntry : diaryEntries){
-            if(id.equals(diaryEntry.id)){
-                return diaryEntry;
-            }
-        }
-        return null;
-    }
-
-    public static void add(DiaryEntry diaryEntry){
-        diaryEntries.add(diaryEntry);
-    }
-
-    public static boolean remove(DiaryEntry diaryEntry){
-        return diaryEntries.remove(diaryEntry);
-    }
 }

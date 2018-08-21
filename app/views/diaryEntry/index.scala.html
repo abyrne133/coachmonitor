@@ -1,4 +1,4 @@
-@(diaryEntrys : Set[DiaryEntry])
+@(diaryEntrys : List[DiaryEntry])
 
 <html>
     <head>
@@ -8,21 +8,7 @@
         <h1>
             All Diary Entries
         </h1>
-        @for(diaryEntry <- diaryEntrys){
-            <p>Id:  @diaryEntry.id</p>
-            <p>DateTime: @diaryEntry.dateTime</p>
-            <p>Athlete: @diaryEntry.athleteName</p>
-            @for(q <- diaryEntry.questions){
-                @if(q.questionType == "Slider"){
-                    <div class="form-group">
-                        <label>@q.title</label>
-                        <input type="range" class="form-control-range" id=@q.slideId min=@q.slideMinValue max=@q.slideMaxValue value =@q.slideDefaultValue onchange="updateSlideValue('@q.slideId','@q.answerId');">
-                        <span id =@q.answerId>@q.slideDefaultValue</span>
-                    </div>
 
-                }
-            }
-        }
         <script src="@routes.Assets.versioned("javascripts/custom.js")"></script>
     </body>
 </html>

@@ -1,34 +1,29 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.avaje.ebean.Model;
+import javax.persistence.*;
 
-public class Question {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Question extends Model {
+    @Id
+    public Long id;
+
     public String title;
-    public String answer;
-    public String answerId;
     public String questionType;
-    public String slideId;
-    public Integer slideCurrentValue;
-    public Integer slideMaxValue;
-    public Integer slideMinValue;
-    public Integer slideDefaultValue;
 
-    public static final List<Question> questions;
+    @OneToOne
+    public Answer answer;
 
-    //persist in db later
-    static{
-        questions = new ArrayList<>();
-        Question q = new Question("Stress level?", "Slider");
-        q.slideMinValue = 1;
-        q.slideMaxValue = 10;
-        q.slideDefaultValue = 5;
-        q.slideId = "stressLevel";
-        q.answerId = "stressLevelAnswer";
-        questions.add(q);
-    }
-    public Question(String title, String questionType){
+    public Question(String title, String questionType) {
         this.title = title;
         this.questionType = questionType;
     }
+
+    public static Finder<Long, Question>  find = new Finder<>(Question.class);
+
+    public static Question findById(Long Id){
+        return find.byId(Id);
+    }
+
 }

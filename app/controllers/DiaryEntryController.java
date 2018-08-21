@@ -1,14 +1,16 @@
 package controllers;
+import com.avaje.ebean.Finder;
 import models.DiaryEntry;
 import models.Question;
+import models.QuestionFactory;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.diaryEntry.*;
-
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public class DiaryEntryController extends Controller{
@@ -16,26 +18,38 @@ public class DiaryEntryController extends Controller{
     @Inject
     FormFactory formFactory;
 
+
+    public Result addSomeQuestions(){
+        Question q1 = new QuestionFactory().getQuestion("Stress Level", "Slider");
+        q1.save();
+        return ok("i think that ran ok!");
+    }
+
     public Result index(){
-        Set<DiaryEntry> diaryEntries = DiaryEntry.allDiaryEntry();
-        return ok(index.render(diaryEntries));
+        return TODO;
+        //List<DiaryEntry> diaryEntries = DiaryEntry.allDiaryEntry();
+        //return ok(index.render(diaryEntries));
     }
 
     public Result create(){
-        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class);
         DiaryEntry diaryEntry = new DiaryEntry();
-        diaryEntry.questions = Question.questions;
-        return ok(create.render(diaryEntryForm, diaryEntry));
+        List<Question> questions = Question.find.all();
+        diaryEntry.questions = questions;
+        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
+        return ok(create.render(diaryEntryForm,"Journal Entry"));
     }
 
     public Result save(){
+        return TODO;
+        /**
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
         DiaryEntry diaryEntry =  diaryEntryForm.get();
         DiaryEntry.add(diaryEntry);
         return redirect(routes.DiaryEntryController.index());
+         */
     }
 
-    public Result edit(Integer id){
+    public Result edit(Long id){
         return TODO;
     }
 
@@ -43,11 +57,13 @@ public class DiaryEntryController extends Controller{
         return TODO;
     }
 
-    public Result destroy(Integer id){
+    public Result destroy(Long id){
         return TODO;
     }
 
-    public Result show(Integer id){
-        return TODO;
+    public Result show(Long id){
+        DiaryEntry diaryEntry = DiaryEntry.findById(id);
+        return ok(show.render(diaryEntry));
     }
+
 }

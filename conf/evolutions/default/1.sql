@@ -3,12 +3,40 @@
 
 # --- !Ups
 
+create table answer (
+  id                            bigserial not null,
+  answer_text                   varchar(255),
+  constraint pk_answer primary key (id)
+);
+
+create table diary_entry (
+  id                            bigserial not null,
+  date_time                     timestamptz,
+  user_id                       bigint,
+  overall_score                 integer,
+  constraint pk_diary_entry primary key (id)
+);
+
 create table linked_account (
   id                            bigserial not null,
   user_id                       bigint,
   provider_user_id              varchar(255),
   provider_key                  varchar(255),
   constraint pk_linked_account primary key (id)
+);
+
+create table question (
+  dtype                         varchar(10) not null,
+  id                            bigserial not null,
+  title                         varchar(255),
+  question_type                 varchar(255),
+  answer_id                     bigint,
+  current_value                 integer,
+  max_value                     integer,
+  min_value                     integer,
+  default_value                 integer,
+  constraint uq_question_answer_id unique (answer_id),
+  constraint pk_question primary key (id)
 );
 
 create table security_role (
@@ -59,8 +87,13 @@ create table user_permission (
   constraint pk_user_permission primary key (id)
 );
 
+alter table diary_entry add constraint fk_diary_entry_user_id foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_diary_entry_user_id on diary_entry (user_id);
+
 alter table linked_account add constraint fk_linked_account_user_id foreign key (user_id) references users (id) on delete restrict on update restrict;
 create index ix_linked_account_user_id on linked_account (user_id);
+
+alter table question add constraint fk_question_answer_id foreign key (answer_id) references answer (id) on delete restrict on update restrict;
 
 alter table token_action add constraint fk_token_action_target_user_id foreign key (target_user_id) references users (id) on delete restrict on update restrict;
 create index ix_token_action_target_user_id on token_action (target_user_id);
@@ -80,8 +113,13 @@ create index ix_users_user_permission_user_permission on users_user_permission (
 
 # --- !Downs
 
+alter table if exists diary_entry drop constraint if exists fk_diary_entry_user_id;
+drop index if exists ix_diary_entry_user_id;
+
 alter table if exists linked_account drop constraint if exists fk_linked_account_user_id;
 drop index if exists ix_linked_account_user_id;
+
+alter table if exists question drop constraint if exists fk_question_answer_id;
 
 alter table if exists token_action drop constraint if exists fk_token_action_target_user_id;
 drop index if exists ix_token_action_target_user_id;
@@ -98,7 +136,13 @@ drop index if exists ix_users_user_permission_users;
 alter table if exists users_user_permission drop constraint if exists fk_users_user_permission_user_permission;
 drop index if exists ix_users_user_permission_user_permission;
 
+drop table if exists answer cascade;
+
+drop table if exists diary_entry cascade;
+
 drop table if exists linked_account cascade;
+
+drop table if exists question cascade;
 
 drop table if exists security_role cascade;
 

@@ -1,24 +1,16 @@
-@(diaryEntryForm : Form[DiaryEntry], diaryEntry : DiaryEntry)
+@(diaryEntryForm : Form[DiaryEntry], title : String)
 @import helper._
 <html>
 <head>
-    <title>Dear Diary</title>
+    <title>@title</title>
 </head>
 <body>
-    <h1>Dear Diary</h1>
-    @helper.form(action = routes.DiaryEntryController.save()){
-        @helper.inputText(diaryEntryForm("id"))
-        @helper.inputText(diaryEntryForm("athleteName"))
-        @for(q <- diaryEntry.questions){
-            @if(q.questionType == "Slider"){
-                <div class="form-group">
-                    <label>@q.title</label>
-                    <input type="range" class="form-control-range" id=@q.slideId min=@q.slideMinValue max=@q.slideMaxValue value =@q.slideDefaultValue onchange="updateSlideValue('@q.slideId','@q.answerId');">
-                    <span id =@q.answerId>@q.slideDefaultValue</span>
-                </div>
-            }
+    <h1>@title</h1>
+    @form(action = routes.DiaryEntryController.save){
+        @for(q <- diaryEntryForm.get().questions){
+            @q.title
         }
-        <input type="submit" value="Submit">
+        <input type ="submit" value = "Submit"/>
     }
     <script src="@routes.Assets.versioned("javascripts/custom.js")"></script>
 </body>
