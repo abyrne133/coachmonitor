@@ -26,7 +26,7 @@ create table linked_account (
 );
 
 create table question (
-  dtype                         varchar(10) not null,
+  questiondiscriminator         varchar(31) not null,
   id                            bigserial not null,
   title                         varchar(255),
   question_type                 varchar(255),

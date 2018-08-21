@@ -3,12 +3,12 @@ package models;
 import com.avaje.ebean.Model;
 import javax.persistence.*;
 
-@Entity
+@Entity(name="Question")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Question extends Model {
+@DiscriminatorColumn(name ="QuestionDiscriminator")
+public class Question extends Model {
     @Id
     public Long id;
-
     public String title;
     public String questionType;
 
@@ -20,7 +20,7 @@ public abstract class Question extends Model {
         this.questionType = questionType;
     }
 
-    public static Finder<Long, Question>  find = new Finder<>(Question.class);
+    public static Finder<Long, Question> find = new Finder<>(Question.class);
 
     public static Question findById(Long Id){
         return find.byId(Id);

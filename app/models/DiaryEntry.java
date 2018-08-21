@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Entity
 public class DiaryEntry extends Model {
     @Id
@@ -12,7 +13,7 @@ public class DiaryEntry extends Model {
 
     public LocalDateTime dateTime;
 
-    @ManyToOne
+    @OneToOne
     public List<Question> questions;
 
     @ManyToOne
@@ -29,7 +30,6 @@ public class DiaryEntry extends Model {
     }
 
     public static Finder<Long, DiaryEntry>  find = new Finder<>(DiaryEntry.class);
-
     public static DiaryEntry findById(Long Id){
         return find.byId(Id);
     }

@@ -7,8 +7,17 @@
 <body>
     <h1>@title</h1>
     @form(action = routes.DiaryEntryController.save){
-        @for(q <- diaryEntryForm.get().questions){
-            @q.title
+        @for(question <- diaryEntryForm.get().questions){
+            <div>
+                @if(question.questionType.equalsIgnoreCase("Slider")){
+                    @defining(question.asInstanceOf[SliderQuestion]) { sliderQuestion =>
+                        <input type="range" class="form-control-range" id="@sliderQuestion.id" min="@sliderQuestion.minValue" max="@sliderQuestion.maxValue" value ="@sliderQuestion.defaultValue" onchange="updateSlideValue('@sliderQuestion.id','answer ' + @sliderQuestion.id);">
+                        <span id ="answer @sliderQuestion.id">@sliderQuestion.defaultValue</span>
+                    }
+                }else{
+                    <p>@question.title is not a slider question</p>
+                }
+            </div>
         }
         <input type ="submit" value = "Submit"/>
     }

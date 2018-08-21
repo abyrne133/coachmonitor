@@ -2,7 +2,8 @@ package models;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="SliderQuestion")
+@DiscriminatorValue("SliderQuestion")
 public class SliderQuestion extends Question {
     public Integer currentValue;
     public Integer maxValue;
