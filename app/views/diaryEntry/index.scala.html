@@ -10,7 +10,9 @@
         </h1>
         @for(diaryEntry <- diaryEntrys){
             <div>
-                <p>@diaryEntry.questions</p>
+                @diaryEntry.id
+                @diaryEntry.arms
+                @diaryEntry.stress
             </div>
         }
         <script src="@routes.Assets.versioned("javascripts/custom.js")"></script>

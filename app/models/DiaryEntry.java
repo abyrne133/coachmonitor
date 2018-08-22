@@ -10,28 +10,18 @@ import java.util.List;
 public class DiaryEntry extends Model {
     @Id
     public Long id;
-
     public LocalDateTime dateTime;
-
-    @OneToOne
-    public List<Question> questions;
+    public String stress;
+    public Boolean legs;
+    public Boolean arms;
 
     @ManyToOne
     public User user;
 
-    public Integer overallScore;
-
-    public Integer calculateScore(){
-        return 0;
-    }
 
     public DiaryEntry(){
-
     }
 
     public static Finder<Long, DiaryEntry>  find = new Finder<>(DiaryEntry.class);
-    public static DiaryEntry findById(Long Id){
-        return find.byId(Id);
-    }
 
 }
