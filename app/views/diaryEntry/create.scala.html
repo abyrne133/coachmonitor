@@ -2,17 +2,33 @@
 @import helper._
 <html>
 <head>
+    <script type="text/javascript" src="@routes.Assets.versioned("lib/jquery/jquery.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.js")"></script>
+    <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
+
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")">
+    <link href="@routes.Assets.versioned("css/main.css")" rel="stylesheet">
+
     <title>@title</title>
 </head>
 <body>
     <h1>@title</h1>
     @form(action = routes.DiaryEntryController.save){
-        @helper.input(diaryEntryForm("stress"), '_label -> "Stress Level") { (id, name, value, args) =>
+        @helper.input(diaryEntryForm("stress"), '_label -> "Stress") { (id, name, value, args) =>
             <input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','stressSlider');">
             <span id ="stressSlider">5</span>
         }
-        <p>Where hurts?</p>
+
+        @helper.input(diaryEntryForm("mood"), '_label -> "Mood") { (id, name, value, args) =>
+        <input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','moodSlider');">
+        <span id ="moodSlider">5</span>
+        }
+
+    <p>Where hurts?</p>
         @checkbox(diaryEntryForm("arms"), '_label -> "Arms")
+        @checkbox(diaryEntryForm("legs"), '_label -> "Legs")
+        @checkbox(diaryEntryForm("back"), '_label -> "Back")
+        @textarea(diaryEntryForm("comment"), '_label -> "Additional Comments")
         <input type ="submit" value = "Submit"/>
     }
     <script src='@routes.Assets.versioned("javascripts/custom.js")'></script>

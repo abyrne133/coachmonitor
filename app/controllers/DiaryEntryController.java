@@ -8,6 +8,8 @@ import play.mvc.Result;
 import views.html.diaryEntry.*;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,13 +26,14 @@ public class DiaryEntryController extends Controller{
 
     public Result create(){
         DiaryEntry diaryEntry = new DiaryEntry();
-        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
+        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class);
         return ok(create.render(diaryEntryForm,"Journal Entry"));
     }
 
     public Result save(){
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
         DiaryEntry diaryEntry =  diaryEntryForm.get();
+        diaryEntry.calcDateTime();
         diaryEntry.save();
         return redirect(routes.DiaryEntryController.index());
     }

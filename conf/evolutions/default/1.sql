@@ -5,10 +5,13 @@
 
 create table diary_entry (
   id                            bigserial not null,
-  date_time                     timestamptz,
-  stress                        varchar(255),
-  legs                          boolean,
-  arms                          boolean,
+  submitted_on                  varchar(255),
+  stress                        integer,
+  mood                          integer,
+  legs                          varchar(255),
+  arms                          varchar(255),
+  back                          varchar(255),
+  comment                       varchar(255),
   user_id                       bigint,
   constraint pk_diary_entry primary key (id)
 );

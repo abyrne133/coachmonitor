@@ -2,19 +2,42 @@
 
 <html>
     <head>
+        <script type="text/javascript" src="@routes.Assets.versioned("lib/jquery/jquery.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.js")"></script>
+        <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
+
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")">
+        <link href="@routes.Assets.versioned("css/main.css")" rel="stylesheet">
+
         <title>All Diary Entries</title>
     </head>
     <body>
         <h1>
             All Diary Entries
         </h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Submitted on</th>
+                <th>Stress</th>
+                <th>Mood</th>
+                <th>Where Hurts</th>
+                <th>Athlete's Comment</th>
+            </tr>
         @for(diaryEntry <- diaryEntrys){
-            <div>
-                @diaryEntry.id
-                @diaryEntry.arms
-                @diaryEntry.stress
-            </div>
+            <tr>
+                <td><a href="@routes.DiaryEntryController.show(diaryEntry.id)">@diaryEntry.submittedOn</a> </td>
+                "@diaryEntry.submittedOn </td>
+                <td>@diaryEntry.stress</td>
+                <td>@diaryEntry.mood</td>
+                <td>
+                    @if(diaryEntry.arms){Arms}
+                    @if(diaryEntry.legs){Legs}
+                    @if(diaryEntry.back){Back}
+                </td>
+                <td>@diaryEntry.comment</td>
+            </tr>
         }
+        </table>
         <script src="@routes.Assets.versioned("javascripts/custom.js")"></script>
     </body>
 </html>
