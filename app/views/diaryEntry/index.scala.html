@@ -9,35 +9,48 @@
         <link rel="stylesheet" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")">
         <link href="@routes.Assets.versioned("css/main.css")" rel="stylesheet">
 
-        <title>All Diary Entries</title>
+        <title>Journal Entries</title>
     </head>
     <body>
-        <h1>
-            All Diary Entries
+        <h1>Journal Entries
         </h1>
-        <table class="table table-striped">
-            <tr>
-                <th>Submitted on</th>
-                <th>Stress</th>
-                <th>Mood</th>
-                <th>Where Hurts</th>
-                <th>Athlete's Comment</th>
-            </tr>
-        @for(diaryEntry <- diaryEntrys){
-            <tr>
-                <td><a href="@routes.DiaryEntryController.show(diaryEntry.id)">@diaryEntry.submittedOn</a> </td>
-                "@diaryEntry.submittedOn </td>
-                <td>@diaryEntry.stress</td>
-                <td>@diaryEntry.mood</td>
-                <td>
-                    @if(diaryEntry.arms){Arms}
-                    @if(diaryEntry.legs){Legs}
-                    @if(diaryEntry.back){Back}
-                </td>
-                <td>@diaryEntry.comment</td>
-            </tr>
+        @if(diaryEntrys.isEmpty()){
+            <p>Oops, you don't have any diary entries yet, please submit one <a href="@routes.DiaryEntryController.create">here</a>.</p>
+        }else{
+            <a class="btn btn-primary" href="@routes.DiaryEntryController.create">New Journal Entry</a>
+            <table class="table table-striped">
+                <tr>
+                    <th>Submitted on</th>
+                    <th>Stress</th>
+                    <th>Mood</th>
+                    <th>Where Hurts</th>
+                    <th>Athlete's Comment</th>
+                    <th></th>
+                </tr>
+                @for(diaryEntry <- diaryEntrys){
+                    <tr>
+                        <td><a href="@routes.DiaryEntryController.show(diaryEntry.id)">@diaryEntry.submittedOn</a> </td>
+                        <td>@diaryEntry.stress</td>
+                        <td>@diaryEntry.mood</td>
+                        <td>
+                            @if(diaryEntry.arms){Arms}
+                            @if(diaryEntry.legs){Legs}
+                            @if(diaryEntry.back){Back}
+                        </td>
+                        <td>@diaryEntry.comment</td>
+                        <td>
+                            <a href="@routes.DiaryEntryController.edit(diaryEntry.id)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a onclick="del('@routes.DiaryEntryController.delete(diaryEntry.id)')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
         }
-        </table>
-        <script src="@routes.Assets.versioned("javascripts/custom.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascript/custom.js")"></script>
     </body>
 </html>

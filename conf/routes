@@ -49,7 +49,7 @@ GET     /DiaryEntry/:id             controllers.DiaryEntryController.show(id : L
 GET     /DiaryEntry/edit/:id        controllers.DiaryEntryController.edit(id : Long)
 POST    /DiaryEntry/edit            controllers.DiaryEntryController.update()
 POST    /DiaryEntry/create          controllers.DiaryEntryController.save()
-GET     /DiaryEntry/delete/:id      controllers.DiaryEntryController.destroy(id : Long)
+DELETE     /DiaryEntry/delete/:id      controllers.DiaryEntryController.delete(id : Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

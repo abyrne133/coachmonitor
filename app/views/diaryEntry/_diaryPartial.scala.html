@@ -1,0 +1,27 @@
+@(diaryEntryForm : Form[DiaryEntry])
+@import helper._
+<div id = "hide">
+    @helper.input(diaryEntryForm("id"), '_label -> "id"){(id, name, value, args) =>
+    <input type="hidden" id="@id" name="@name" value="@value">@diaryEntryForm("id").valueOr("")</input>
+    }
+</div>
+@helper.input(diaryEntryForm("submittedOn"), '_label -> "Date Submitted"){(id, name, value, args) =>
+<input type="text" id="@id" name="@name" value="@value"></input>
+}
+
+@helper.input(diaryEntryForm("stress"), '_label -> "Stress") { (id, name, value, args) =>
+<input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','stressSlider');">
+<span id ="stressSlider">5</span>
+}
+
+@helper.input(diaryEntryForm("mood"), '_label -> "Mood") { (id, name, value, args) =>
+<input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','moodSlider');">
+<span id ="moodSlider">5</span>
+}
+
+<p>Where hurts?</p>
+@checkbox(diaryEntryForm("arms"), '_label -> "Arms")
+@checkbox(diaryEntryForm("legs"), '_label -> "Legs")
+@checkbox(diaryEntryForm("back"), '_label -> "Back")
+@textarea(diaryEntryForm("comment"), '_label -> "Additional Comments")
+<input type ="submit" value = "Submit"/>

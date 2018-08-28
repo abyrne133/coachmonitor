@@ -13,7 +13,7 @@
 </head>
 <body>
 
-@form(action = routes.DiaryEntryController.save()){
+@form(action = routes.DiaryEntryController.update()){
     @_diaryPartial(diaryEntryForm)
 }
 <script src='@routes.Assets.versioned("javascript/custom.js")'></script>

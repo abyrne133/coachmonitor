@@ -7,12 +7,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.diaryEntry.*;
 import javax.inject.Inject;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class DiaryEntryController extends Controller{
 
@@ -26,32 +21,48 @@ public class DiaryEntryController extends Controller{
 
     public Result create(){
         DiaryEntry diaryEntry = new DiaryEntry();
-        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class);
-        return ok(create.render(diaryEntryForm,"Journal Entry"));
+        diaryEntry.calcDateTime();
+        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
+        return ok(create.render(diaryEntryForm));
     }
 
     public Result save(){
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
         DiaryEntry diaryEntry =  diaryEntryForm.get();
-        diaryEntry.calcDateTime();
         diaryEntry.save();
         return redirect(routes.DiaryEntryController.index());
     }
 
     public Result edit(Long id){
-        return TODO;
+        DiaryEntry diaryEntry = DiaryEntry.find.byId((id));
+        if(diaryEntry == null){
+            return notFound("You are attempting to edit a dairy entry that does not exist.");
+        }
+        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
+        return ok(update.render(diaryEntryForm));
     }
 
     public Result update(){
-        return TODO;
+        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
+        DiaryEntry diaryEntry =  diaryEntryForm.get();
+        diaryEntry.update();
+        return redirect(routes.DiaryEntryController.index());
     }
 
-    public Result destroy(Long id){
-        return TODO;
+    public Result delete(Long id){
+        DiaryEntry diaryEntry = DiaryEntry.find.byId((id));
+        if(diaryEntry == null){
+            return notFound("You are attempting to delete a dairy entry that does not exist.");
+        }
+        diaryEntry.delete();
+        return redirect(routes.DiaryEntryController.index());
     }
 
     public Result show(Long id){
         DiaryEntry diaryEntry = DiaryEntry.find.byId(id);
+        if(diaryEntry ==null){
+            return notFound("You are attempting to show a dairy entry that does not exist.");
+        }
         return ok(show.render(diaryEntry));
     }
 
