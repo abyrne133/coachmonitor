@@ -7,6 +7,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.diaryEntry.*;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 public class DiaryEntryController extends Controller{
@@ -16,7 +17,7 @@ public class DiaryEntryController extends Controller{
 
     public Result index(){
         List<DiaryEntry> diaryEntries = DiaryEntry.find.all();
-        return ok(index.render(diaryEntries));
+       return ok(index.render(diaryEntries));
     }
 
     public Result create(){
