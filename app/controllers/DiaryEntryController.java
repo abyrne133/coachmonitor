@@ -1,19 +1,25 @@
 package controllers;
+import be.objectify.deadbolt.java.actions.Group;
+import be.objectify.deadbolt.java.actions.Restrict;
 import com.avaje.ebean.Finder;
+import com.feth.play.module.pa.PlayAuthenticate;
 import models.DiaryEntry;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import providers.MyUsernamePasswordAuthProvider;
+import service.UserProvider;
 import views.html.diaryEntry.*;
 import javax.inject.Inject;
+import java.text.Normalizer;
 import java.util.Collections;
 import java.util.List;
-
+@Restrict(@Group(Application.USER_ROLE))
 public class DiaryEntryController extends Controller{
-
     @Inject
     FormFactory formFactory;
+
 
     public Result index(){
         List<DiaryEntry> diaryEntries = DiaryEntry.find.all();
