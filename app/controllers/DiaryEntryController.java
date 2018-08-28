@@ -4,6 +4,7 @@ import be.objectify.deadbolt.java.actions.Restrict;
 import com.avaje.ebean.Finder;
 import com.feth.play.module.pa.PlayAuthenticate;
 import models.DiaryEntry;
+import models.User;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -17,13 +18,13 @@ import java.util.Collections;
 import java.util.List;
 @Restrict(@Group(Application.USER_ROLE))
 public class DiaryEntryController extends Controller{
+
     @Inject
     FormFactory formFactory;
 
-
     public Result index(){
         List<DiaryEntry> diaryEntries = DiaryEntry.find.all();
-       return ok(index.render(diaryEntries));
+        return ok(index.render(diaryEntries));
     }
 
     public Result create(){
@@ -36,6 +37,8 @@ public class DiaryEntryController extends Controller{
     public Result save(){
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
         DiaryEntry diaryEntry =  diaryEntryForm.get();
+        //final User localUser = userProvider.getUser(session());
+        //diaryEntry.user = localUser;
         diaryEntry.save();
         return redirect(routes.DiaryEntryController.index());
     }
