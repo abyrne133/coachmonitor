@@ -14,7 +14,9 @@ import service.UserProvider;
 import views.html.diaryEntry.*;
 import javax.inject.Inject;
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 @Restrict(@Group(Application.USER_ROLE))
 public class DiaryEntryController extends Controller{
@@ -22,9 +24,27 @@ public class DiaryEntryController extends Controller{
     @Inject
     FormFactory formFactory;
 
+    public static final String FLASH_MESSAGE_KEY = "message";
+    public static final String FLASH_ERROR_KEY = "error";
+    public static final String USER_ROLE = "user";
+
+    private final PlayAuthenticate auth;
+    private final MyUsernamePasswordAuthProvider provider;
+    private final UserProvider userProvider;
+
+    @Inject
+    public DiaryEntryController(final PlayAuthenticate auth, final MyUsernamePasswordAuthProvider provider,
+                       final UserProvider userProvider) {
+        this.auth = auth;
+        this.provider = provider;
+        this.userProvider = userProvider;
+    }
+
     public Result index(){
+        final User localUser = userProvider.getUser(session());
+        final String userName = localUser.name;
         List<DiaryEntry> diaryEntries = DiaryEntry.find.all();
-        return ok(index.render(diaryEntries));
+        return ok(index.render(diaryEntries, userName));
     }
 
     public Result create(){
@@ -37,8 +57,8 @@ public class DiaryEntryController extends Controller{
     public Result save(){
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
         DiaryEntry diaryEntry =  diaryEntryForm.get();
-        //final User localUser = userProvider.getUser(session());
-        //diaryEntry.user = localUser;
+        final User localUser = userProvider.getUser(session());
+        diaryEntry.user = localUser;
         diaryEntry.save();
         return redirect(routes.DiaryEntryController.index());
     }
@@ -55,6 +75,8 @@ public class DiaryEntryController extends Controller{
     public Result update(){
         Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
         DiaryEntry diaryEntry =  diaryEntryForm.get();
+        final User localUser = userProvider.getUser(session());
+        diaryEntry.user = localUser;
         diaryEntry.update();
         return redirect(routes.DiaryEntryController.index());
     }

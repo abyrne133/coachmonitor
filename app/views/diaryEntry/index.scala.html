@@ -1,4 +1,4 @@
-@(diaryEntrys : List[DiaryEntry])
+@(diaryEntrys : List[DiaryEntry], userName : String)
 
 <html>
     <head>
@@ -19,6 +19,7 @@
         }else{
             <a class="btn btn-primary" href="@routes.DiaryEntryController.create">New Journal Entry</a>
             <table class="table table-striped">
+                <span id = "user">@userName</span>
                 <tr>
                     <th>Submitted on</th>
                     <th>Stress</th>
