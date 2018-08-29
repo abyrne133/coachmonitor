@@ -34,4 +34,7 @@ public class DiaryEntry extends Model {
 
     public static Finder<Long, DiaryEntry>  find = new Finder<>(DiaryEntry.class);
 
+    public static List<DiaryEntry> getPage(int startRow, int endRow, String userMail){
+        return DiaryEntry.find.where().eq("user.email",userMail).setMaxRows(50).orderBy("id desc").findPagedList().getList();
+    }
 }

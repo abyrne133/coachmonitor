@@ -2,6 +2,7 @@ package controllers;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import com.avaje.ebean.Finder;
+import com.avaje.ebean.PagedList;
 import com.feth.play.module.pa.PlayAuthenticate;
 import models.DiaryEntry;
 import models.User;
@@ -27,14 +28,13 @@ public class DiaryEntryController extends Controller{
     public static final String FLASH_MESSAGE_KEY = "message";
     public static final String FLASH_ERROR_KEY = "error";
     public static final String USER_ROLE = "user";
-
     private final PlayAuthenticate auth;
     private final MyUsernamePasswordAuthProvider provider;
     private final UserProvider userProvider;
 
     @Inject
     public DiaryEntryController(final PlayAuthenticate auth, final MyUsernamePasswordAuthProvider provider,
-                       final UserProvider userProvider) {
+                                final UserProvider userProvider) {
         this.auth = auth;
         this.provider = provider;
         this.userProvider = userProvider;
@@ -44,9 +44,10 @@ public class DiaryEntryController extends Controller{
         final User localUser = userProvider.getUser(session());
         final String userMail = localUser.email;
         final String userName = localUser.name;
-        List<DiaryEntry> diaryEntries = DiaryEntry.find.where().eq("user.email",userMail).findList();
+        List<DiaryEntry> diaryEntries = DiaryEntry.getPage(1,50, userMail);
         return ok(index.render(diaryEntries, userName));
     }
+
 
     public Result create(){
         DiaryEntry diaryEntry = new DiaryEntry();
