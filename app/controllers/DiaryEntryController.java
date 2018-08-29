@@ -42,8 +42,9 @@ public class DiaryEntryController extends Controller{
 
     public Result index(){
         final User localUser = userProvider.getUser(session());
+        final String userMail = localUser.email;
         final String userName = localUser.name;
-        List<DiaryEntry> diaryEntries = DiaryEntry.find.all();
+        List<DiaryEntry> diaryEntries = DiaryEntry.find.where().eq("user.email",userMail).findList();
         return ok(index.render(diaryEntries, userName));
     }
 
