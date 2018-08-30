@@ -52,16 +52,15 @@
             </table>
             @if(totalPages > 1){
                 <div class="pagination">
-                @if(pageNo > 1){<a href="#">&laquo;</a>}
-                    @for(pageCount <- 1 until totalPages){
-                    <a href="#">@pageCount</a>
+                @if(pageNo > 1){<a href="@routes.DiaryEntryController.index(1)">&laquo;</a>}
+                    @for(pageCount <- 1 to totalPages){
+                        <a href="@routes.DiaryEntryController.index(pageCount)">@pageCount</a>
                     }
 
-                    <a href="#">&raquo;</a>
+                    <a href="@routes.DiaryEntryController.index(totalPages)">&raquo;</a>
                 </div>
             }
         }
-
         <script src="@routes.Assets.versioned("javascript/custom.js")"></script>
     </body>
 </html>

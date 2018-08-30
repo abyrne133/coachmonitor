@@ -35,12 +35,12 @@ public class DiaryEntry extends Model {
     public static Finder<Long, DiaryEntry>  find = new Finder<>(DiaryEntry.class);
 
     public static List<DiaryEntry> getPage(int pageNo, int pageSize, String userMail){
-        final int endRow = (pageNo * pageSize) -1;
-        final int startRow = endRow - pageSize + 1;
-        return DiaryEntry.find.where().eq("user.email",userMail).setFirstRow(startRow).setMaxRows(endRow).orderBy("id desc").findPagedList().getList();
+        final int endRow = (pageNo * pageSize);
+        final int startRow = endRow - pageSize;
+        return DiaryEntry.find.where().eq("user.email",userMail).setFirstRow(startRow).setMaxRows(pageSize).orderBy("id desc").findPagedList().getList();
     }
 
     public static int getTotalPages(int pageSize, String userMail){
-        return (DiaryEntry.find.where().eq("user.email",userMail).findCount()%pageSize) + 1;
+        return ((DiaryEntry.find.where().eq("user.email",userMail).findCount()+1)/pageSize);
     }
 }

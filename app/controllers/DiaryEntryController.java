@@ -40,12 +40,11 @@ public class DiaryEntryController extends Controller{
         this.userProvider = userProvider;
     }
 
-    public Result index(){
+    public Result index(int pageNo){
         final User localUser = userProvider.getUser(session());
         final String userMail = localUser.email;
         final String userName = localUser.name;
-        final int pageNo = 1;
-        final int pageSize = 50;
+        final int pageSize = 2;
         List<DiaryEntry> diaryEntries = DiaryEntry.getPage(pageNo, pageSize, userMail);
         final int totalPages = DiaryEntry.getTotalPages(pageSize, userMail);
         return ok(index.render(diaryEntries, userName, pageNo , totalPages));
@@ -64,7 +63,7 @@ public class DiaryEntryController extends Controller{
         final User localUser = userProvider.getUser(session());
         diaryEntry.user = localUser;
         diaryEntry.save();
-        return redirect(routes.DiaryEntryController.index());
+        return redirect(routes.DiaryEntryController.index(1));
     }
 
     public Result edit(Long id){
@@ -82,7 +81,7 @@ public class DiaryEntryController extends Controller{
         final User localUser = userProvider.getUser(session());
         diaryEntry.user = localUser;
         diaryEntry.update();
-        return redirect(routes.DiaryEntryController.index());
+        return redirect(routes.DiaryEntryController.index(1));
     }
 
     public Result delete(Long id){
@@ -91,7 +90,7 @@ public class DiaryEntryController extends Controller{
             return notFound("You are attempting to delete a dairy entry that does not exist.");
         }
         diaryEntry.delete();
-        return redirect(routes.DiaryEntryController.index());
+        return redirect(routes.DiaryEntryController.index(1));
     }
 
     public Result show(Long id){

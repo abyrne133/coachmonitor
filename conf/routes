@@ -43,7 +43,7 @@ POST    /accounts/merge             controllers.Account.doMerge
 GET     /login/password/forgot     controllers.Signup.forgotPassword(email: String ?= "")
 POST    /login/password/forgot     controllers.Signup.doForgotPassword
 
-GET     /DiaryEntry                 controllers.DiaryEntryController.index()
+GET     /DiaryEntry                 controllers.DiaryEntryController.index(pageNo : Int ?= 1)
 GET     /DiaryEntry/create          controllers.DiaryEntryController.create()
 GET     /DiaryEntry/:id             controllers.DiaryEntryController.show(id : Long)
 GET     /DiaryEntry/edit/:id        controllers.DiaryEntryController.edit(id : Long)
