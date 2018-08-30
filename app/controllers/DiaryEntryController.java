@@ -44,10 +44,12 @@ public class DiaryEntryController extends Controller{
         final User localUser = userProvider.getUser(session());
         final String userMail = localUser.email;
         final String userName = localUser.name;
-        List<DiaryEntry> diaryEntries = DiaryEntry.getPage(1,50, userMail);
-        return ok(index.render(diaryEntries, userName));
+        final int pageNo = 1;
+        final int pageSize = 50;
+        List<DiaryEntry> diaryEntries = DiaryEntry.getPage(pageNo, pageSize, userMail);
+        final int totalPages = DiaryEntry.getTotalPages(pageSize, userMail);
+        return ok(index.render(diaryEntries, userName, pageNo , totalPages));
     }
-
 
     public Result create(){
         DiaryEntry diaryEntry = new DiaryEntry();

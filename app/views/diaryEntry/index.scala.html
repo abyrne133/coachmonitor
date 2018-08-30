@@ -1,4 +1,4 @@
-@(diaryEntrys : List[DiaryEntry], userName : String)
+@(diaryEntrys : List[DiaryEntry], userName : String, pageNo : Integer, totalPages : Integer)
 
 <html>
     <head>
@@ -50,6 +50,16 @@
                     </tr>
                 }
             </table>
+            @if(totalPages > 1){
+                <div class="pagination">
+                @if(pageNo > 1){<a href="#">&laquo;</a>}
+                    @for(pageCount <- 1 until totalPages){
+                    <a href="#">@pageCount</a>
+                    }
+
+                    <a href="#">&raquo;</a>
+                </div>
+            }
         }
 
         <script src="@routes.Assets.versioned("javascript/custom.js")"></script>
