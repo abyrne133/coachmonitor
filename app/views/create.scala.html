@@ -1,0 +1,9 @@
+@import service.UserProvider
+@(userProvider : UserProvider, diaryEntryForm : Form[DiaryEntry])
+@import helper._
+
+@main(userProvider, Messages("playauthenticate.index.title")){
+    @form(action = routes.Application.save()){
+        @_diaryPartial(diaryEntryForm)
+    }
+}

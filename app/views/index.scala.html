@@ -1,29 +1,54 @@
 @import service.UserProvider
-@(userProvider: UserProvider)
+@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer)
 
 @main(userProvider, Messages("playauthenticate.index.title")) {
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>@Messages("playauthenticate.index.intro")</h1>
-        <p>@Messages("playauthenticate.index.intro_2") <br/>@Messages("playauthenticate.index.intro_3")</p>
-      </div>
+    <h1>Journal Entries</h1>
+    @if(diaryEntries.isEmpty()){
+        <p>Oops, you don't have any diary entries yet, please submit one <a href="@routes.Application.create">here</a>.
+        </p>
+    }else{
+        <a class="btn btn-primary" href="@routes.Application.create">New Journal Entry</a>
+        <table class="table table-striped">
+            <span id="user">@userName</span>
+            <tr>
+                <th>Submitted on</th>
+                <th>Stress</th>
+                <th>Mood</th>
+                <th>Where Hurts</th>
+                <th>Athlete's Comment</th>
+                <th></th>
+            </tr>
+            @for(diaryEntry <- diaryEntries){
+                <tr>
+                    <td><a href="@routes.Application.show(diaryEntry.id)">@diaryEntry.submittedOn</a></td>
+                    <td>@diaryEntry.stress</td>
+                    <td>@diaryEntry.mood</td>
+                    <td>
+                        @if(diaryEntry.arms){Arms}
+                        @if(diaryEntry.legs){Legs}
+                        @if(diaryEntry.back){Back}
+                    </td>
+                    <td>@diaryEntry.comment</td>
+                    <td>
+                        <a href="@routes.Application.edit(diaryEntry.id)">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a onclick="del('@routes.Application.delete(diaryEntry.id)')">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+        @if(totalPages > 1){
+            <div class="pagination">
+                @if(pageNo > 1){<a href="@routes.Application.index(1)">&laquo;</a>}
+                @for(pageCount <- 1 to totalPages){
+                <a href="@routes.Application.index(pageCount)">@pageCount</a>
+                }
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-xs-6 col-sm-4">
-          <h2>@Messages("playauthenticate.index.heading")</h2>
-           <p>Cupcake ipsum dolor sit amet. Pastry pie powder biscuit bear claw. Jelly-o chocolate bar sweet roll sugar plum chocolate. Biscuit brownie chupa chups macaroon ice cream halvah sugar plum oat cake ice cream.</p>
-          <p><a class="btn" href="#">@Messages("playauthenticate.index.details") &raquo;</a></p>
-        </div>
-        <div class="col-xs-6 col-sm-4">
-          <h2>@Messages("playauthenticate.index.heading")</h2>
-           <p>Applicake macaroon caramels gummi bears pastry. Cake liquorice carrot cake chocolate lollipop dessert. Halvah fruitcake marshmallow pie gummi bears pie marzipan.</p>
-          <p><a class="btn" href="#">@Messages("playauthenticate.index.details") &raquo;</a></p>
-       </div>
-        <div class="col-xs-6 col-sm-4">
-          <h2>@Messages("playauthenticate.index.heading")</h2>
-          <p>Wafer halvah jujubes lollipop liquorice jelly-o pastry. Pie halvah toffee. Candy canes donut sugar plum. Chocolate cake powder tart liquorice cotton candy pudding sweet.</p>
-          <p><a class="btn" href="#">@Messages("playauthenticate.index.details") &raquo;</a></p>
-        </div>
-      </div>
+                <a href="@routes.Application.index(totalPages)">&raquo;</a>
+            </div>
+        }
     }
+}

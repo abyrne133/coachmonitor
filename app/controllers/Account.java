@@ -161,7 +161,7 @@ public class Account extends Controller {
 		final AuthUser u = this.auth.getLinkUser(session());
 		if (u == null) {
 			// account to link could not be found, silently redirect to login
-			return redirect(routes.Application.index());
+			return redirect(routes.Application.index(1));
 		}
 		return ok(ask_link.render(this.userProvider, ACCEPT_FORM, u));
 	}
@@ -172,7 +172,7 @@ public class Account extends Controller {
 		final AuthUser u = this.auth.getLinkUser(session());
 		if (u == null) {
 			// account to link could not be found, silently redirect to login
-			return redirect(routes.Application.index());
+			return redirect(routes.Application.index(1));
 		}
 
 		final Form<Accept> filledForm = ACCEPT_FORM.bindFromRequest();
@@ -200,7 +200,7 @@ public class Account extends Controller {
 		final AuthUser bUser = this.auth.getMergeUser(session());
 		if (bUser == null) {
 			// user to merge with could not be found, silently redirect to login
-			return redirect(routes.Application.index());
+			return redirect(routes.Application.index(1));
 		}
 
 		// You could also get the local user object here via
@@ -218,7 +218,7 @@ public class Account extends Controller {
 		final AuthUser bUser = this.auth.getMergeUser(session());
 		if (bUser == null) {
 			// user to merge with could not be found, silently redirect to login
-			return redirect(routes.Application.index());
+			return redirect(routes.Application.index(1));
 		}
 
 		final Form<Accept> filledForm = ACCEPT_FORM.bindFromRequest();
