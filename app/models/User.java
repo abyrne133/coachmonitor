@@ -93,6 +93,9 @@ public class User extends AppModel implements Subject {
 		return exp.findRowCount() > 0;
 	}
 
+	public static List<User> getUserEmailAndNameOnly(){
+		return User.find.select("name, email").orderBy("name").findList();
+	}
 	private static ExpressionList<User> getAuthUserFind(
 			final AuthUserIdentity identity) {
 		return find.where().eq("active", true)

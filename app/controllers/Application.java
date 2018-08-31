@@ -17,9 +17,7 @@ import views.html.*;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 
 public class Application extends Controller {
 	public static final String FLASH_MESSAGE_KEY = "message";
@@ -48,10 +46,17 @@ public class Application extends Controller {
 		final User localUser = userProvider.getUser(session());
 		final String userMail = localUser.email;
 		final String userName = localUser.name;
-		final int pageSize = 2;
-		List<DiaryEntry> diaryEntries = DiaryEntry.getPage(pageNo, pageSize, userMail);
-		final int totalPages = DiaryEntry.getTotalPages(pageSize, userMail);
-		return ok(index.render(this.userProvider, diaryEntries, userName, pageNo , totalPages));
+		boolean isAdmin = false;
+		List<User> userEmailAndNames = new ArrayList<>();
+		if (userMail.equalsIgnoreCase("rorybyrne94@hotmail.com")|userMail.equalsIgnoreCase("abyrne133@gmail.com")){
+			isAdmin = true;
+			userEmailAndNames = User.getUserEmailAndNameOnly();
+		}
+
+		final int pageSize = 10;
+		List<DiaryEntry> diaryEntries = DiaryEntry.getPage(pageNo, pageSize, userMail, isAdmin);
+		final int totalPages = DiaryEntry.getTotalPages(pageSize, userMail, isAdmin);
+		return ok(index.render(this.userProvider, diaryEntries, userName, pageNo , totalPages, isAdmin, userEmailAndNames));
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
@@ -111,12 +116,6 @@ public class Application extends Controller {
 		return redirect(routes.Application.index(1));
 	}
 
-
-	@Restrict(@Group(Application.USER_ROLE))
-	public Result restricted() {
-		final User localUser = this.userProvider.getUser(session());
-		return ok(restricted.render(this.userProvider, localUser));
-	}
 
 	@Restrict(@Group(Application.USER_ROLE))
 	public Result profile() {

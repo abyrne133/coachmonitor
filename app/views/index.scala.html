@@ -1,5 +1,5 @@
 @import service.UserProvider
-@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer)
+@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
 
 @main(userProvider, Messages("playauthenticate.index.title")) {
     <h1>Journal Entries</h1>
@@ -8,8 +8,17 @@
         </p>
     }else{
         <a class="btn btn-primary" href="@routes.Application.create">New Journal Entry</a>
+        @if(admin && !users.isEmpty()){
+            <div class="dropdown">
+                <button onclick="dropdownFunction()" class="dropbtn">Select Athlete</button>
+                <div id="myDropdown" class="dropdown-content">
+                    @for(user <- users){
+                        <a href="#">@user.name , @user.email </a>
+                    }
+                </div>
+            </div>
+        }
         <table class="table table-striped">
-            <span id="user">@userName</span>
             <tr>
                 <th>Submitted on</th>
                 <th>Stress</th>

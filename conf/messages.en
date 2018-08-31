@@ -118,7 +118,7 @@ playauthenticate.navigation.link_more=Link more providers
 playauthenticate.navigation.logout=Sign out
 playauthenticate.navigation.login=Log in
 playauthenticate.navigation.home=Home
-playauthenticate.navigation.restricted=Restricted page
+playauthenticate.navigation.admin=Admin
 playauthenticate.navigation.signup=Sign up
 
 # play-authenticate: Handler

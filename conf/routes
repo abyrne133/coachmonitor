@@ -9,7 +9,6 @@ POST    /create                     controllers.Application.save()
 DELETE  /delete/:id                 controllers.Application.delete(id : Long)
 POST    /edit                       controllers.Application.update()
 GET     /edit/:id                   controllers.Application.edit(id : Long)
-GET     /restricted                 controllers.Application.restricted
 GET     /assets/javascript/routes.js    controllers.Application.jsRoutes
 GET     /:id                        controllers.Application.show(id : Long)
 
