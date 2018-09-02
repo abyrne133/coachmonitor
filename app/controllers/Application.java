@@ -48,7 +48,8 @@ public class Application extends Controller {
 		final String userName = localUser.name;
 		boolean isAdmin = false;
 		List<User> userEmailAndNames = new ArrayList<>();
-		if (userMail.equalsIgnoreCase("rorybyrne94@hotmail.com")|userMail.equalsIgnoreCase("abyrne133@gmail.com")){
+		if (userMail.equalsIgnoreCase("rorybyrne94@hotmail.com")
+				|userMail.equalsIgnoreCase("abyrne133@gmail.com")){
 			isAdmin = true;
 			userEmailAndNames = User.getUserEmailAndNameOnly();
 		}
