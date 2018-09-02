@@ -1,7 +1,7 @@
 @import service.UserProvider
 @(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
 
-@main(userProvider, Messages("playauthenticate.index.title")) {
+@main(userProvider, "Coach Monitor") {
     <h1>Journal Entries</h1>
     @if(diaryEntries.isEmpty()){
         <p>Oops, you don't have any diary entries yet, please submit one <a href="@routes.Application.create">here</a>.

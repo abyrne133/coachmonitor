@@ -2,7 +2,7 @@
 @(userProvider: UserProvider, diaryEntryForm : Form[DiaryEntry])
 @import helper._
 
-@main(userProvider, Messages("playauthenticate.index.title")){
+@main(userProvider, "Coach Monitor"){
     @form(action = routes.Application.update()){
         @_diaryPartial(diaryEntryForm)
     }
