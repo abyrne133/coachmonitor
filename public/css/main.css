@@ -49,11 +49,16 @@ h1 {
 /* Add a grey background color on mouse-over */
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
+#titleHeader{
+    display: inline;
+}
+
 #searchBox{
     background-image: url('searchicon.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
     background-size: 20px;
+    float:right;
     width: 25%; /* Full-width */
     font-size: 16px; /* Increase font-size */
     padding: 12px 20px 12px 40px; /* Add some padding */
@@ -61,3 +66,34 @@ h1 {
     margin-bottom: 12px; /* Add some space below the input */
  }
 
+.example-date {
+    position: relative;
+    padding: 22px 5px 0px;
+}
+
+.example-date .year{
+    display: block;
+    position: absolute;
+    right: -5px;
+    top: 15px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+      font-weight:bold;
+}
+
+.example-date .month {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.example-date .day {
+    font-size: 22px;
+    line-height: 22px;
+    position: absolute;
+    left: 5px;
+    top: 0px;
+}
+
+.glyphicon {
+    font-size: 125%;
+}

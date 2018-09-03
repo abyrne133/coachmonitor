@@ -2,31 +2,30 @@
 @(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
 
 @main(userProvider, "Coach Monitor") {
-    <h1>Journal Entries</h1>
+
     @if(diaryEntries.isEmpty()){
         <p>Oops, you don't have any diary entries yet, please submit one <a href="@routes.Application.create">here</a>.
         </p>
     }else{
         @if(admin && !users.isEmpty()){
-            <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search for athlete..">
+            <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search athletes..">
         }
-        <table id="athlete-table" class="table table-bordered table-hover table-condensed">
+        <table id="athlete-table" class="table table-bordered table-hover table-condensed table-responsive">
             <tr>
                 <th>Athlete</th>
-                <th>Submitted on</th>
                 <th>Sore Body Parts</th>
-                <th>Stress</th>
-                <th>Mood</th>
-                <th>Sleep</th>
-                <th>Muscles</th>
-                <th>Nutrition</th>
                 <th>Athlete's Comment</th>
+                <th>Stress Management</th>
+                <th>Mood/Energy</th>
+                <th>Sleep Quality</th>
+                <th>Muscle Readiness</th>
+                <th>Yesterday's Nutrition</th>
                 <th></th>
             </tr>
             @for(diaryEntry <- diaryEntries){
                 <tr>
-                    <td>@diaryEntry.user.name<br/><small>@diaryEntry.user.email<small></td>
-                    <td><a href="@routes.Application.show(diaryEntry.id)">@diaryEntry.submittedOn</a></td>
+                    <td>@diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)<small></td>
+
                     <td>
                         @if(diaryEntry.arms){Arms}
                         @if(diaryEntry.legs){Legs}
@@ -38,13 +37,14 @@
                         @if(diaryEntry.other){Other}
 
                     </td>
+                    <td>@diaryEntry.comment</td>
                     <td class="colourCell align-middle">@diaryEntry.stress</td>
                     <td class="colourCell align-middle">@diaryEntry.mood</td>
                     <td class="colourCell">@diaryEntry.sleep</td>
                     <td class="colourCell">@diaryEntry.muscles</td>
                     <td class="colourCell">@diaryEntry.nutrition</td>
 
-                    <td>@diaryEntry.comment</td>
+
                     <td>
                         <a href="@routes.Application.edit(diaryEntry.id)">
                             <span class="glyphicon glyphicon-edit"></span>

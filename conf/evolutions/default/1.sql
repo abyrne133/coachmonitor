@@ -10,7 +10,6 @@ create table diary_entry (
   nutrition                     integer,
   mood                          integer,
   sleep                         integer,
-  energy                        integer,
   muscles                       integer,
   legs                          varchar(255),
   chest                         varchar(255),

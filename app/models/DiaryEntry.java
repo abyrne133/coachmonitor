@@ -4,6 +4,7 @@ import com.avaje.ebean.*;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,7 +19,6 @@ public class DiaryEntry extends Model {
     public Integer nutrition;
     public Integer mood;
     public Integer sleep;
-    public Integer energy;
     public Integer muscles;
 
     public String legs;
@@ -38,9 +38,17 @@ public class DiaryEntry extends Model {
     public DiaryEntry(){}
 
     public void calcDateTime(){
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM YYYY, HH:mm:ss");
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM YYYY");
         this.submittedOn = now.format(formatter);
+    };
+
+    public void setDefaultSlides(){
+        this.stress = 5;
+        this.mood = 5;
+        this.sleep = 5;
+        this.muscles = 5;
+        this.nutrition = 5;
     };
 
     public static Finder<Long, DiaryEntry>  find = new Finder<>(DiaryEntry.class);

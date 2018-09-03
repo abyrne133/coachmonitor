@@ -64,6 +64,7 @@ public class Application extends Controller {
 	public Result create(){
 		DiaryEntry diaryEntry = new DiaryEntry();
 		diaryEntry.calcDateTime();
+		diaryEntry.setDefaultSlides();
 		Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
 		return ok(create.render(this.userProvider, diaryEntryForm));
 	}
