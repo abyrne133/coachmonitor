@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/play-authenticate-usage -Dhttp.port=$PORT -Dplay.version=2.5.14 -Dplay.evolutions.db.default.autoApply=true -Ddb.default.url=$DATABASE_URL  -Ddb.default.driver=org.postgresql.Driver -Dconfig.resource=prod.conf
+web: target/universal/stage/bin/play-authenticate-usage -Dhttp.port=$PORT -Dplay.version=2.5.14 -Dplay.evolutions.db.default.autoApply=true -Ddb.default.url=$DATABASE_URL  -Ddb.default.driver=org.postgresql.Driver -Dconfig.resource=prod.conf -Dplay.crypto.secret="[3iecSZ32z@;w>iOa1`uO[YcuRnU]P57eOw<vrtaITLYsZCGCyRiJAjNOPf4r4]O"
