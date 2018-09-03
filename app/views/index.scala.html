@@ -11,12 +11,15 @@
         @if(admin && !users.isEmpty()){
             <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search for athlete..">
         }
-<table id="athlete-table" class="table table-striped">
+<table id="athlete-table" class="table table-bordered table-hover table-condensed">
             <tr>
                 <th>Athlete</th>
                 <th>Submitted on</th>
                 <th>Stress</th>
                 <th>Mood</th>
+                <th>Sleep</th>
+                <th>Muscles</th>
+                <th>Nutrition</th>
                 <th>Where Hurts</th>
                 <th>Athlete's Comment</th>
                 <th></th>
@@ -27,10 +30,19 @@
                     <td><a href="@routes.Application.show(diaryEntry.id)">@diaryEntry.submittedOn</a></td>
                     <td>@diaryEntry.stress</td>
                     <td>@diaryEntry.mood</td>
+                    <td>@diaryEntry.sleep</td>
+                    <td>@diaryEntry.muscles</td>
+                    <td>@diaryEntry.nutrition</td>
                     <td>
                         @if(diaryEntry.arms){Arms}
                         @if(diaryEntry.legs){Legs}
                         @if(diaryEntry.back){Back}
+                        @if(diaryEntry.chest){Chest}
+                        @if(diaryEntry.feet){Feet}
+                        @if(diaryEntry.neck){Neck}
+                        @if(diaryEntry.shoulder){Shoulder}
+                        @if(diaryEntry.other){Other}
+
                     </td>
                     <td>@diaryEntry.comment</td>
                     <td>

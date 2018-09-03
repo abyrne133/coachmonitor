@@ -122,7 +122,7 @@ playauthenticate.navigation.admin=Admin
 playauthenticate.navigation.signup=Sign up
 
 # play-authenticate: Handler
-playauthenticate.handler.loginfirst=You need to log in first, to view ''{0}''
+playauthenticate.handler.loginfirst=You need to log in first
 
 # play-authenticate: Profile
 playauthenticate.profile.title=User profile
@@ -137,8 +137,8 @@ playauthenticate.profile.session_endless=Your user ID is {0} and your session wi
 playauthenticate.profile.password_change=Change/set a password for your account
 
 # play-authenticate - sample: Index page
-playauthenticate.index.title=Welcome to Play Authenticate
-playauthenticate.index.intro=Play Authenticate sample app
+playauthenticate.index.title=Coach Monitor
+playauthenticate.index.intro=Monitor your performance
 playauthenticate.index.intro_2=This is a template for a simple application with authentication.
 playauthenticate.index.intro_3=Check the main navigation above for simple page examples including supported authentication features.
 playauthenticate.index.heading=Heading

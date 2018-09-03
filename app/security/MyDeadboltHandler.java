@@ -38,7 +38,7 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler {
 			final String originalUrl = this.auth.storeOriginalUrl(context);
 
 			context.flash().put("error",
-					"You need to log in first, to view '" + originalUrl + "'");
+					"You need to log in first.");
 			return CompletableFuture.completedFuture(Optional.ofNullable(redirect(this.auth.getResolver().login())));
 		}
 	}

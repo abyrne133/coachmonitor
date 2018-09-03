@@ -15,11 +15,22 @@ public class DiaryEntry extends Model {
     public Long id;
     public String submittedOn;
     public Integer stress;
+    public Integer nutrition;
     public Integer mood;
+    public Integer sleep;
+    public Integer energy;
+    public Integer muscles;
+
     public String legs;
+    public String chest;
     public String arms;
     public String back;
+    public String feet;
+    public String neck;
+    public String shoulder;
+    public String other;
     public String comment;
+    public String coachComment;
 
     @ManyToOne
     public User user;

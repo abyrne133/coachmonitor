@@ -1,9 +1,9 @@
 @(diaryEntryForm : Form[DiaryEntry])
 @import helper._
 
-    @helper.input(diaryEntryForm("id"), '_label -> "id", '_class -> "hide"){(id, name, value, args) =>
+@helper.input(diaryEntryForm("id"), '_label -> "id", '_class -> "hide"){(id, name, value, args) =>
     <input type="hidden" id="@id" name="@name" value="@value">@diaryEntryForm("id").valueOr("")</input>
-    }
+}
 
 @helper.input(diaryEntryForm("submittedOn"), '_label -> "Date Submitted"){(id, name, value, args) =>
     <input type="hidden" id="@id" name="@name" value="@value"></input>
@@ -20,9 +20,31 @@
     <span id ="moodSlider">5</span>
 }
 
+@helper.input(diaryEntryForm("sleep"), '_label -> "Sleep Quality") { (id, name, value, args) =>
+    <input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','sleepSlider');">
+    <span id ="sleepSlider">5</span>
+}
+
+@helper.input(diaryEntryForm("muscles"), '_label -> "Muscle Readiness") { (id, name, value, args) =>
+    <input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','muscleSlider');">
+    <span id ="muscleSlider">5</span>
+}
+
+@helper.input(diaryEntryForm("nutrition"), '_label -> "Yesterday's nutrition") { (id, name, value, args) =>
+    <input type="range" class="form-control-range" id="@id" name="@name" min="1" max="10" value ="5" onchange="updateSlideValue('@id','nutritionSlider');">
+    <span id ="nutritionSlider">5</span>
+}
+
+
 <p>Where hurts?</p>
 @checkbox(diaryEntryForm("arms"), '_label -> "Arms")
 @checkbox(diaryEntryForm("legs"), '_label -> "Legs")
 @checkbox(diaryEntryForm("back"), '_label -> "Back")
+@checkbox(diaryEntryForm("chest"), '_label -> "Chest")
+@checkbox(diaryEntryForm("feet"), '_label -> "Feet")
+@checkbox(diaryEntryForm("neck"), '_label -> "Neck")
+@checkbox(diaryEntryForm("shoulder"), '_label -> "Shoulder")
+@checkbox(diaryEntryForm("other"), '_label -> "Other")
 @textarea(diaryEntryForm("comment"), '_label -> "Additional Comments")
+
 <input type ="submit" value = "Submit"/>
