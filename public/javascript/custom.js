@@ -51,3 +51,19 @@ window.onclick = function(event) {
     }
   }
 }
+
+$(document).ready(function(){
+    var num;
+    $('td.colourCell').each(function(){
+        num = parseInt($(this).text());
+        if (num < '3') {
+            $(this).css('background-color','rgb(255, 77, 77)');
+        } else if (num < '6') {
+             $(this).css('background-color','rgb(255, 184, 77)');
+        } else if (num < '9') {
+             $(this).css('background-color','rgb(255, 255, 77)');
+        } else {
+             $(this).css('background-color','rgb(166, 255, 77)');
+        }
+    });
+});

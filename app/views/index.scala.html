@@ -7,7 +7,6 @@
         <p>Oops, you don't have any diary entries yet, please submit one <a href="@routes.Application.create">here</a>.
         </p>
     }else{
-        <a class="btn btn-primary" href="@routes.Application.create">New Journal Entry</a>
         @if(admin && !users.isEmpty()){
             <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search for athlete..">
         }
@@ -15,24 +14,19 @@
             <tr>
                 <th>Athlete</th>
                 <th>Submitted on</th>
+                <th>Sore Body Parts</th>
                 <th>Stress</th>
                 <th>Mood</th>
                 <th>Sleep</th>
                 <th>Muscles</th>
                 <th>Nutrition</th>
-                <th>Where Hurts</th>
                 <th>Athlete's Comment</th>
                 <th></th>
             </tr>
             @for(diaryEntry <- diaryEntries){
                 <tr>
-                    <td>@diaryEntry.user.name, @diaryEntry.user.email </td>
+                    <td>@diaryEntry.user.name<br/><small>@diaryEntry.user.email<small></td>
                     <td><a href="@routes.Application.show(diaryEntry.id)">@diaryEntry.submittedOn</a></td>
-                    <td>@diaryEntry.stress</td>
-                    <td>@diaryEntry.mood</td>
-                    <td>@diaryEntry.sleep</td>
-                    <td>@diaryEntry.muscles</td>
-                    <td>@diaryEntry.nutrition</td>
                     <td>
                         @if(diaryEntry.arms){Arms}
                         @if(diaryEntry.legs){Legs}
@@ -44,6 +38,12 @@
                         @if(diaryEntry.other){Other}
 
                     </td>
+                    <td class="colourCell align-middle">@diaryEntry.stress</td>
+                    <td class="colourCell align-middle">@diaryEntry.mood</td>
+                    <td class="colourCell">@diaryEntry.sleep</td>
+                    <td class="colourCell">@diaryEntry.muscles</td>
+                    <td class="colourCell">@diaryEntry.nutrition</td>
+
                     <td>@diaryEntry.comment</td>
                     <td>
                         <a href="@routes.Application.edit(diaryEntry.id)">

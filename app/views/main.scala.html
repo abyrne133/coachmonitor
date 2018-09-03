@@ -33,9 +33,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="@("active".when(nav == ""))"><a href="@routes.Application.index()">@Messages("playauthenticate.navigation.home")</a></li>
-
-
+                        @subjectPresent(){
+                            <li class="@("active".when(nav == ""))"><a href="@routes.Application.index()">My Journal Entries</a></li>
+                            <li class="@("active".when(nav == ""))"><a href="@routes.Application.create()">New Journal Entry</a></li>
+                        }
                         @subjectNotPresent() {
                             <li class="@("active".when(nav == "signup"))"><a href="@routes.Application.signup()">@Messages("playauthenticate.navigation.signup")</a></li>
                         }
@@ -64,7 +65,7 @@
         </nav>
 
 
-        <div class="container">
+        <div class="container-fluid">
             @if(flash.contains(Application.FLASH_ERROR_KEY)) {
                 <div class="alert alert-danger" role="alert">
                     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
