@@ -1,10 +1,10 @@
-@(verificationUrl: String, token: String, name: String, email: String)Howdy @name,
+@(verificationUrl: String, token: String, name: String, email: String)Hi @name,
 
 
-You recently signed up for PlayAuthenticate.
+You recently signed up for Coach Monitor.
 
 To activate your account, follow this link now:
 @verificationUrl
 
-Cheers,
-The PlayAuthenticate Team
+Thanks,
+Coach Monitor Team

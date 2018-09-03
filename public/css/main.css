@@ -97,3 +97,15 @@ h1 {
 .glyphicon {
     font-size: 125%;
 }
+
+.inlineCheckBox{
+    display: inline;
+    float: left;
+    margin: 20px;
+}
+
+.commentBox{
+    display: block;
+    clear:both;
+
+}

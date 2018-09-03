@@ -36,15 +36,17 @@
 }
 
 
-<p>Where hurts?</p>
-@checkbox(diaryEntryForm("arms"), '_label -> "Arms")
-@checkbox(diaryEntryForm("legs"), '_label -> "Legs")
-@checkbox(diaryEntryForm("back"), '_label -> "Back")
-@checkbox(diaryEntryForm("chest"), '_label -> "Chest")
-@checkbox(diaryEntryForm("feet"), '_label -> "Feet")
-@checkbox(diaryEntryForm("neck"), '_label -> "Neck")
-@checkbox(diaryEntryForm("shoulder"), '_label -> "Shoulder")
-@checkbox(diaryEntryForm("other"), '_label -> "Other")
-@textarea(diaryEntryForm("comment"), '_label -> "Additional Comments")
+<dl><dt><label>Sore Body Parts</label></dt></dl>
+<dd>
+@checkbox(diaryEntryForm("arms"), '_label -> "Arms", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("legs"), '_label -> "Legs", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("back"), '_label -> "Back", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("chest"), '_label -> "Chest", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("feet"), '_label -> "Feet", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("neck"), '_label -> "Neck", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("shoulder"), '_label -> "Shoulder", '_class -> "inlineCheckBox")
+@checkbox(diaryEntryForm("other"), '_label -> "Other", '_class -> "inlineCheckBox")
+</dd>
+@textarea(diaryEntryForm("comment"), '_label -> "Additional Comments", '_class -> "commentBox")
 
 <input type ="submit" class = "btn btn-primary" value = "Submit"/>
