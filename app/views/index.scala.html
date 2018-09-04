@@ -8,7 +8,7 @@
         </p>
     }else{
         @if(admin && !users.isEmpty()){
-            <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search athletes..">
+            <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search athletes...">
         }
         <table id="athlete-table" class="table table-bordered table-hover table-condensed table-responsive">
             <tr>
@@ -24,7 +24,7 @@
             </tr>
             @for(diaryEntry <- diaryEntries){
                 <tr>
-                    <td>@diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)<small></td>
+                    <td>@diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)</small></td>
 
                     <td>
                         @if(diaryEntry.arms){Arms}
@@ -38,8 +38,8 @@
 
                     </td>
                     <td>@diaryEntry.comment</td>
-                    <td class="colourCell align-middle">@diaryEntry.stress</td>
-                    <td class="colourCell align-middle">@diaryEntry.mood</td>
+                    <td class="colourCell">@diaryEntry.stress</td>
+                    <td class="colourCell">@diaryEntry.mood</td>
                     <td class="colourCell">@diaryEntry.sleep</td>
                     <td class="colourCell">@diaryEntry.muscles</td>
                     <td class="colourCell">@diaryEntry.nutrition</td>
