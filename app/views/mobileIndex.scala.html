@@ -7,10 +7,10 @@
         </p>
     }else{
 @if(admin && !users.isEmpty()){
-<input type="text" id="searchBoxMobile" onkeyup="searchTable()" placeholder="Search athletes...">
+<input type="text" id="searchBoxMobile" onkeyup="searchTables()" placeholder="Search athletes...">
 }
 @for(diaryEntry <- diaryEntries){
-<table id="athlete-table" class="table table-bordered table-hover table-condensed table-responsive">
+<table class="table table-bordered table-hover table-condensed table-responsive athlete-tables">
     <th colspan="2">
         @diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)</small>
     </th>

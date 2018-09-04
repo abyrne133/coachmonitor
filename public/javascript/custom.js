@@ -38,6 +38,25 @@ function searchTable() {
   }
 }
 
+function searchTables() {
+  // Declare variables
+  var input, filter, table, data, i;
+  input = document.getElementById("searchBoxMobile");
+  filter = input.value.toUpperCase();
+  tables = document.getElementsByClassName("athlete-tables");
+  for(j = 0; j <tables.length; j++){
+    data = tables[j].innerHTML;
+       if (data) {
+          if (data.toUpperCase().indexOf(filter) > -1) {
+            tables[j].style.display = "";
+          } else {
+            tables[j].style.display = "none";
+          }
+       }
+   }
+
+}
+
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
