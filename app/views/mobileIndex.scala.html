@@ -1,0 +1,12 @@
+@import service.UserProvider
+@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
+
+@main(userProvider, "Coach Monitor") {
+    @if(diaryEntries.isEmpty()){
+        <p>Oops, you don't have any diary entries yet, please submit one <a href="@routes.Application.create">here</a>.
+        </p>
+    }else{
+        <p>mobile device!</p>
+    }
+}
+

@@ -12,6 +12,7 @@ import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyLogin;
 import providers.MyUsernamePasswordAuthProvider.MySignup;
+import service.UserAgent;
 import service.UserProvider;
 import views.html.*;
 
@@ -27,7 +28,6 @@ public class Application extends Controller {
 	private final MyUsernamePasswordAuthProvider provider;
 	private final FormFactory formFactory;
 	private final UserProvider userProvider;
-
 	public static String formatTimestamp(final long t) {
 		return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
 	}
@@ -58,6 +58,10 @@ public class Application extends Controller {
 		final int pageSize = 10;
 		List<DiaryEntry> diaryEntries = DiaryEntry.getPage(pageNo, pageSize, userMail, isAdmin);
 		final int totalPages = DiaryEntry.getTotalPages(pageSize, userMail, isAdmin);
+		final UserAgent userAgent = new UserAgent(request());
+		if (userAgent.isMobileDevice()){
+            return ok(mobileIndex.render(this.userProvider, diaryEntries, userName, pageNo , totalPages, isAdmin, userEmailAndNames));
+        }
 		return ok(index.render(this.userProvider, diaryEntries, userName, pageNo , totalPages, isAdmin, userEmailAndNames));
 	}
 
