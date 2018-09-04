@@ -11,14 +11,13 @@
 }
 @for(diaryEntry <- diaryEntries){
 <table class="table table-bordered table-hover table-condensed table-responsive athlete-tables">
-    <th colspan="2">
-        @diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)</small>
-    </th>
-
-
     <tr>
-        <td>Sore Body Parts</td>
-        <td>
+        <th colspan="2">
+            @diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)</small>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2"><b>Sore Body Parts:</b></br>
             @if(diaryEntry.arms){Arms}
             @if(diaryEntry.legs){Legs}
             @if(diaryEntry.back){Back}
@@ -27,12 +26,12 @@
             @if(diaryEntry.neck){Neck}
             @if(diaryEntry.shoulder){Shoulder}
             @if(diaryEntry.other){Other}
-
         </td>
     </tr>
     <tr>
-        <td>Athlete's Comment</td>
-        <td>@diaryEntry.comment</td>
+        <td colspan="2"><b>Athlete's Comment:</b></br>
+            @diaryEntry.comment
+        </td>
     </tr>
     <tr>
         <td>Stress Management</td>
