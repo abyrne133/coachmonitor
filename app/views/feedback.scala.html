@@ -1,0 +1,15 @@
+@import service.UserProvider
+@(userProvider: UserProvider, diaryEntryForm : Form[DiaryEntry])
+@import helper._
+
+@main(userProvider, "Coach Monitor"){
+@form(action = routes.Application.update()){
+    <div class="hidden">
+        @_diaryPartial(diaryEntryForm)
+    </div>
+    @textarea(diaryEntryForm("coachComment"), '_label -> "Give Feedback", '_class -> "commentBox")
+<input type="submit" class="btn btn-primary" value="Submit">
+    }
+
+}
+

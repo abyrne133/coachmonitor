@@ -1,5 +1,5 @@
 @import service.UserProvider
-@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
+@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String, userMail : String, pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
 
 @main(userProvider, "Coach Monitor") {
 
@@ -20,7 +20,9 @@
                 <th>Sleep Quality</th>
                 <th>Muscle Readiness</th>
                 <th>Yesterday's Nutrition</th>
+                <th>Coach Feedback</th>
                 <th></th>
+
             </tr>
             @for(diaryEntry <- diaryEntries){
                 <tr>
@@ -43,15 +45,19 @@
                     <td class="colourCell">@diaryEntry.sleep</td>
                     <td class="colourCell">@diaryEntry.muscles</td>
                     <td class="colourCell">@diaryEntry.nutrition</td>
-
-
+                    <td>@diaryEntry.coachComment</td>
                     <td>
-                        <a href="@routes.Application.edit(diaryEntry.id)">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                        <a onclick="del('@routes.Application.delete(diaryEntry.id)')">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </a>
+                    @if(userMail.equalsIgnoreCase(diaryEntry.user.email)){
+
+                            <a href="@routes.Application.edit(diaryEntry.id)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a onclick="del('@routes.Application.delete(diaryEntry.id)')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                    }else{
+                        <a class="btn btn-primary" href="@routes.Application.provideFeedback(diaryEntry.id)">Give Feedback</a>
+                        }
                     </td>
                 </tr>
             }

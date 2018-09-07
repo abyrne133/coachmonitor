@@ -46,12 +46,9 @@ public class Application extends Controller {
 		final User localUser = userProvider.getUser(session());
 		final String userMail = localUser.email;
 		final String userName = localUser.name;
-		boolean isAdmin = false;
+		boolean isAdmin = localUser.isAdmin();
 		List<User> userEmailAndNames = new ArrayList<>();
-		if (userMail.equalsIgnoreCase("rorybyrne94@hotmail.com")
-				|userMail.equalsIgnoreCase("abyrne133@gmail.com")
-                |userMail.equalsIgnoreCase("rorybyrnecoach@gmail.com")){
-			isAdmin = true;
+		if (isAdmin){
 			userEmailAndNames = User.getUserEmailAndNameOnly();
 		}
 
@@ -60,9 +57,9 @@ public class Application extends Controller {
 		final int totalPages = DiaryEntry.getTotalPages(pageSize, userMail, isAdmin);
 		final UserAgent userAgent = new UserAgent(request());
 		if (userAgent.isMobileDevice()){
-            return ok(mobileIndex.render(this.userProvider, diaryEntries, userName, pageNo , totalPages, isAdmin, userEmailAndNames));
+            return ok(mobileIndex.render(this.userProvider, diaryEntries, userName, userMail, pageNo , totalPages, isAdmin, userEmailAndNames));
         }
-		return ok(index.render(this.userProvider, diaryEntries, userName, pageNo , totalPages, isAdmin, userEmailAndNames));
+		return ok(index.render(this.userProvider, diaryEntries, userName, userMail, pageNo , totalPages, isAdmin, userEmailAndNames));
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
@@ -99,16 +96,18 @@ public class Application extends Controller {
 		if(diaryEntry == null){
 			return notFound("You are attempting to edit a dairy entry that does not exist.");
 		}
-		Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
-		return ok(update.render(this.userProvider, diaryEntryForm));
+		final User localUser = userProvider.getUser(session());
+		if(localUser.email.equalsIgnoreCase(diaryEntry.user.email)) {
+			Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
+			return ok(update.render(this.userProvider, diaryEntryForm));
+		}
+		return redirect(routes.Application.index(1));
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
 	public Result update(){
 		Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).bindFromRequest();
 		DiaryEntry diaryEntry =  diaryEntryForm.get();
-		final User localUser = userProvider.getUser(session());
-		diaryEntry.user = localUser;
 		diaryEntry.update();
 		return redirect(routes.Application.index(1));
 	}
@@ -123,6 +122,15 @@ public class Application extends Controller {
 		return redirect(routes.Application.index(1));
 	}
 
+	@Restrict(@Group(Application.USER_ROLE))
+	public Result provideFeedback(Long id){
+        DiaryEntry diaryEntry = DiaryEntry.find.byId(id);
+        if(diaryEntry ==null){
+            return notFound("You are attempting to provide feedback on a dairy entry that does not exist.");
+        }
+        Form<DiaryEntry> diaryEntryForm = formFactory.form(DiaryEntry.class).fill(diaryEntry);
+        return ok(feedback.render(this.userProvider, diaryEntryForm));
+	}
 
 	@Restrict(@Group(Application.USER_ROLE))
 	public Result profile() {

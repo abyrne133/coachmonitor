@@ -59,6 +59,7 @@ create table users (
   last_name                     varchar(255),
   last_login                    timestamptz,
   active                        boolean,
+  is_admin                      boolean,
   email_validated               boolean,
   constraint pk_users primary key (id)
 );

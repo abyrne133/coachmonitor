@@ -1,5 +1,5 @@
 @import service.UserProvider
-@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
+@(userProvider: UserProvider, diaryEntries : List[DiaryEntry], userName : String , userMail : String, pageNo : Integer , totalPages : Integer, admin : Boolean, users : List[User])
 
 @main(userProvider, "Coach Monitor") {
     @if(diaryEntries.isEmpty()){
@@ -53,17 +53,26 @@
         <td>Yesterday's nutrition</td>
         <td class="colourCell align-middle">@diaryEntry.nutrition</td>
     </tr>
-
-
     <tr>
-        <td colspan="2">
-        <a href="@routes.Application.edit(diaryEntry.id)">
-            <span class="glyphicon glyphicon-edit"></span>
-        </a>
-        <a onclick="del('@routes.Application.delete(diaryEntry.id)')">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
+        <td colspan="2"><b>Coach Feedback:</b></br>
+            @diaryEntry.coachComment
         </td>
+    </tr>
+    <tr class="noBorder">
+    @if(userMail.equalsIgnoreCase(diaryEntry.user.email)){
+        <td colspan="2">
+            <a href="@routes.Application.edit(diaryEntry.id)">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a onclick="del('@routes.Application.delete(diaryEntry.id)')">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </td>
+    }else{
+        <td colspan="2">
+            <a class="btn btn-primary" href="@routes.Application.provideFeedback(diaryEntry.id)">Give Feedback</a>
+        </td>
+        }
     </tr>
 </table>
 }
