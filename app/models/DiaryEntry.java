@@ -64,10 +64,20 @@ public class DiaryEntry extends Model {
 
     }
 
+    public static List<DiaryEntry> getPagePerAthlete(int pageNo, int pageSize, String athleteMail) {
+        final int endRow = (pageNo * pageSize);
+        final int startRow = endRow - pageSize;
+        return DiaryEntry.find.where().eq("user.email", athleteMail).setFirstRow(startRow).setMaxRows(pageSize).orderBy("id desc").findPagedList().getList();
+    }
+
     public static int getTotalPages(int pageSize, String userMail, Boolean isAdmin){
         if (isAdmin){
             return ((DiaryEntry.find.findCount()+1)/pageSize);
         }
         return ((DiaryEntry.find.where().eq("user.email",userMail).findCount()+1)/pageSize);
+    }
+
+    public static int getTotalPagesPerAthlete(int pageSize, String athleteMail){
+        return ((DiaryEntry.find.where().eq("user.email",athleteMail).findCount()+1)/pageSize);
     }
 }

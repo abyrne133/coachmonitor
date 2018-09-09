@@ -1,0 +1,68 @@
+@(diaryEntries : List[DiaryEntry], userName : String, userMail : String, pageNo : Integer , totalPages : Integer)
+
+@if(diaryEntries.isEmpty()){
+    <p>No diary entries found, please submit one <a href="@routes.Application.create">here</a>.</p>
+}else{
+    <table id="athlete-table" class="table table-bordered table-hover table-condensed table-responsive">
+        <tr>
+            <th>Athlete</th>
+            <th>Sore Body Parts</th>
+            <th>Athlete's Comment</th>
+            <th>Stress Management</th>
+            <th>Mood/Energy</th>
+            <th>Sleep Quality</th>
+            <th>Muscle Readiness</th>
+            <th>Yesterday's Nutrition</th>
+            <th>Coach Feedback</th>
+            <th></th>
+
+        </tr>
+        @for(diaryEntry <- diaryEntries){
+        <tr>
+            <td>@diaryEntry.user.name, @diaryEntry.submittedOn <small>(@diaryEntry.user.email)</small></td>
+
+            <td>
+                @if(diaryEntry.arms){Arms}
+                @if(diaryEntry.legs){Legs}
+                @if(diaryEntry.back){Back}
+                @if(diaryEntry.chest){Chest}
+                @if(diaryEntry.feet){Feet}
+                @if(diaryEntry.neck){Neck}
+                @if(diaryEntry.shoulder){Shoulder}
+                @if(diaryEntry.other){Other}
+
+            </td>
+            <td>@diaryEntry.comment</td>
+            <td class="colourCell">@diaryEntry.stress</td>
+            <td class="colourCell">@diaryEntry.mood</td>
+            <td class="colourCell">@diaryEntry.sleep</td>
+            <td class="colourCell">@diaryEntry.muscles</td>
+            <td class="colourCell">@diaryEntry.nutrition</td>
+            <td>@diaryEntry.coachComment</td>
+            <td>
+                @if(userMail.equalsIgnoreCase(diaryEntry.user.email)){
+
+                <a href="@routes.Application.edit(diaryEntry.id)" class="btn btn-primary">
+                    Edit
+                </a>
+                <a onclick="del('@routes.Application.delete(diaryEntry.id)')" class="btn btn-primary">
+                    Delete
+                </a>
+                }else{
+                <a class="btn btn-primary" href="@routes.Application.provideFeedback(diaryEntry.id)">Give Feedback</a>
+                }
+            </td>
+        </tr>
+        }
+    </table>
+    @if(totalPages > 1){
+    <div class="pagination">
+        @if(pageNo > 1){<a href="@routes.Application.index(1)">&laquo;</a>}
+        @for(pageCount <- 1 to totalPages){
+        <a href="@routes.Application.index(pageCount)">@pageCount</a>
+        }
+
+        <a href="@routes.Application.index(totalPages)">&raquo;</a>
+    </div>
+    }
+}

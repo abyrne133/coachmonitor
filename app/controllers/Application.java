@@ -63,6 +63,21 @@ public class Application extends Controller {
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
+	public Result getAthleteJournalEntries(String athleteMail,int pageNo){
+		final User localUser = userProvider.getUser(session());
+		final String userMail = localUser.email;
+		final String userName = localUser.name;
+		final int pageSize = 10;
+		List<DiaryEntry> diaryEntries = DiaryEntry.getPagePerAthlete(pageNo, pageSize, athleteMail);
+		final int totalPages = DiaryEntry.getTotalPagesPerAthlete(pageSize, athleteMail);
+		final UserAgent userAgent = new UserAgent(request());
+		if (userAgent.isMobileDevice()){
+			return TODO;
+		}
+		return ok(_desktopPartial.render(diaryEntries, userName, userMail, pageNo , totalPages));
+	}
+
+	@Restrict(@Group(Application.USER_ROLE))
 	public Result create(){
 		DiaryEntry diaryEntry = new DiaryEntry();
 		diaryEntry.calcDateTime();

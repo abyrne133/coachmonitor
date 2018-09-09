@@ -61,11 +61,11 @@
     <tr class="noBorder">
     @if(userMail.equalsIgnoreCase(diaryEntry.user.email)){
         <td colspan="2">
-            <a href="@routes.Application.edit(diaryEntry.id)">
-                <span class="glyphicon glyphicon-edit"></span>
+            <a href="@routes.Application.edit(diaryEntry.id)" class="btn btn-primary">
+                Edit
             </a>
-            <a onclick="del('@routes.Application.delete(diaryEntry.id)')">
-                <span class="glyphicon glyphicon-remove"></span>
+            <a onclick="del('@routes.Application.delete(diaryEntry.id)')" class="btn btn-primary">
+                Delete
             </a>
         </td>
     }else{

@@ -11,6 +11,16 @@ function del(urlToDelete){
     });
 }
 
+function getAthleteEntries(urlToGet){
+    $.ajax({
+        url: urlToGet, type: 'GET', success: function(result){
+            $("#journalEntries").html(result);
+            colourCells();
+        }
+    });
+}
+
+
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function toggleDropdown() {
@@ -70,8 +80,11 @@ window.onclick = function(event) {
     }
   }
 }
-
 $(document).ready(function(){
+  colourCells();
+});
+
+function colourCells(){
     var num;
     $('td.colourCell').each(function(){
         num = parseInt($(this).text());
@@ -85,4 +98,4 @@ $(document).ready(function(){
              $(this).css('background-color','rgb(166, 255, 77)');
         }
     });
-});
+}
