@@ -3,13 +3,21 @@
 
 @main(userProvider, "Coach Monitor") {
     @if(admin && !users.isEmpty()){
-        <input type="text" id="searchBox" onkeyup="searchTable()" placeholder="Search athletes...">
-    <a onclick="getAthleteEntries('@routes.Application.getAthleteJournalEntries("rorybyrnecoach@gmail.com",1)')" class="btn btn-primary">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            @for(user <- users){
+                <a onclick="getAthleteEntries('@routes.Application.getAthleteJournalEntries(user.email,1)')">@user.name <br/><small>(@user.email)</small> </a>
+            }
+        </div>
 
-        Get Rory Byrne
+        <!-- Use any element to open the sidenav -->
+        <a onclick="openNav()" class="btn btn-primary">Search Athletes</a>
+
     </a>
     }
-    <div id="journalEntries">
-        @_desktopPartial(diaryEntries, userName, userMail, pageNo, totalPages)
+    <div id = "main">
+        <div id="journalEntries">
+            @_desktopPartial(diaryEntries, userName, userMail, pageNo, totalPages)
+        </div>
     </div>
 }
