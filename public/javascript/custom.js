@@ -12,7 +12,7 @@ function del(urlToDelete){
 }
 
 function getAthleteEntries(urlToGet){
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    $("#journalEntries").html("<div class='loader'></div>");
     $.ajax({
         url: urlToGet, type: 'GET', success: function(result){
             $("#journalEntries").html(result);
@@ -114,5 +114,4 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
 }
